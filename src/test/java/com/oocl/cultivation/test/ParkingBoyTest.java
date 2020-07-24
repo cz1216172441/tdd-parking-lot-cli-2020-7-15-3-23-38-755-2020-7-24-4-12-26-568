@@ -6,8 +6,6 @@ import com.oocl.cultivation.entity.Ticket;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 public class ParkingBoyTest {
 
     @Test
@@ -22,7 +20,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_1_car_when_fetching_car_given_1_ticker_1_parking_boy() {
+    void should_return_1_car_when_fetching_car_given_1_ticker_and_1_parking_boy() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
         Ticket ticket = new Ticket("CAR001");
