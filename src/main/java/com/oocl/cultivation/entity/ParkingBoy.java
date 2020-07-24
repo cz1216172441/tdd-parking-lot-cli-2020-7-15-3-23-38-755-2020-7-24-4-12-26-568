@@ -18,7 +18,7 @@ public class ParkingBoy {
     public Car fetchingCar(Ticket ticket) {
         if (parkingLot != null) {
             List<Car> cars = parkingLot.getCars();
-            if (cars != null && !cars.isEmpty()) {
+            if (cars != null && !cars.isEmpty() && ticket != null) {
                 Optional<Car> first = cars.stream()
                         .filter(car -> car.getId().equals(ticket.getNumber()))
                         .findFirst();

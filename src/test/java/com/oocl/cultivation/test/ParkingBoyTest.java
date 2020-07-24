@@ -84,4 +84,18 @@ public class ParkingBoyTest {
         // then
         Assertions.assertNull(car);
     }
+
+    @Test
+    void should_return_no_car_when_fetching_car_given_no_ticket_and_1_parking_boy_and_1_parking_log_with_1_car() {
+        // given
+        ParkingBoy parkingBoy = new ParkingBoy();
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car("CAR002"));
+        ParkingLot parkingLot = new ParkingLot(cars);
+        parkingBoy.setParkingLot(parkingLot);
+        // when
+        Car car = parkingBoy.fetchingCar(null);
+        // then
+        Assertions.assertNull(car);
+    }
 }
