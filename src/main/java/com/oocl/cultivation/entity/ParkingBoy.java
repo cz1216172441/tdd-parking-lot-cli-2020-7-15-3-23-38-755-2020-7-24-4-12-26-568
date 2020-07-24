@@ -23,12 +23,12 @@ public class ParkingBoy {
     public Car fetchingCar(Ticket ticket) {
         if (parkingLot != null) {
             List<Car> cars = parkingLot.getCars();
-            if (cars != null && !cars.isEmpty() && ticket != null) {
-                Optional<Car> first = cars.stream()
+            if (!cars.isEmpty() && ticket != null) {
+                Optional<Car> resultCar = cars.stream()
                         .filter(car -> car.getId().equals(ticket.getNumber()))
                         .findFirst();
-                if (first.isPresent()) {
-                    String carId = first.get().getId();
+                if (resultCar.isPresent()) {
+                    String carId = resultCar.get().getId();
                     cars.removeIf(car -> car.getId().equals(carId));
                     return new Car(carId);
                 }
