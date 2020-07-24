@@ -11,7 +11,7 @@ public class ParkingBoyTest {
     @Test
     void should_return_1_ticket_when_parking_car_given_1_car_and_1_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy(1);
+        ParkingBoy parkingBoy = new ParkingBoy();
         Car car = new Car("CAR001");
         // when
         Ticket ticket = parkingBoy.parkingCar(car);
@@ -22,11 +22,12 @@ public class ParkingBoyTest {
     @Test
     void should_return_1_car_when_fetching_car_given_1_ticker_1_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy(1);
+        ParkingBoy parkingBoy = new ParkingBoy();
         Ticket ticket = new Ticket("CAR001");
         // when
         Car car = parkingBoy.fetchingCar(ticket);
         // then
         Assertions.assertEquals("CAR001", car.getId());
     }
+
 }
