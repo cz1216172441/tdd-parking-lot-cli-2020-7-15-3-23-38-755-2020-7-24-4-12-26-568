@@ -86,7 +86,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_when_fetching_car_given_no_ticket_and_1_parking_boy_and_1_parking_log_with_1_car() {
+    void should_return_no_car_when_fetching_car_given_no_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
         List<Car> cars = new ArrayList<>();
