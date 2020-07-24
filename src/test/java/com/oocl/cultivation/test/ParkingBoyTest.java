@@ -18,4 +18,14 @@ public class ParkingBoyTest {
         Assertions.assertNotNull(ticket);
     }
 
+    @Test
+    void should_return_1_car_when_fetching_car_given_1_ticker_1_parking_boy() {
+        // given
+        ParkingBoy parkingBoy = new ParkingBoy(1);
+        String ticker = "CAR001";
+        // when
+        Car car = parkingBoy.fetchingCar(ticker);
+        // then
+        Assertions.assertNotNull(car);
+    }
 }

@@ -12,4 +12,8 @@ public class ParkingBoy {
         return car.getId();
     }
 
+    public Car fetchingCar(String ticket) {
+        return null;
+    }
+
 }
