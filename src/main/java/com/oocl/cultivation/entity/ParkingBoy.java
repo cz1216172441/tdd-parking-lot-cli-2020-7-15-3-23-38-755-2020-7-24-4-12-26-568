@@ -12,7 +12,12 @@ public class ParkingBoy {
     }
 
     public Ticket parkingCar(Car car) {
-        return new Ticket(car.getId());
+        List<Car> cars = parkingLot.getCars();
+        if (cars.size() < 10) {
+            cars.add(car);
+            return new Ticket(car.getId());
+        }
+        return null;
     }
 
     public Car fetchingCar(Ticket ticket) {
