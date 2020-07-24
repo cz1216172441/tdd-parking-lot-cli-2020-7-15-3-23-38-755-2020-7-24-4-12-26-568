@@ -114,4 +114,23 @@ public class ParkingBoyTest {
         // then
         Assertions.assertNull(car);
     }
+
+
+    @Test
+    void should_return_can_not_parking_when_parking_car_given_1_car_and_1_parking_boy_and_1_capacity_is_10_parking_lot_with_10_car() {
+        // given
+        ParkingBoy parkingBoy = new ParkingBoy();
+        Car car = new Car("CAR11");
+        List<Car> cars = new ArrayList<>(10);
+        int parkingLotCapacity = 10;
+        for (int i = 1; i <= parkingLotCapacity; i++) {
+            cars.add(new Car(String.format("CAR%d", i)));
+        }
+        ParkingLot parkingLot = new ParkingLot(cars);
+        parkingBoy.setParkingLot(parkingLot);
+        // when
+        Ticket ticket = parkingBoy.parkingCar(car);
+        // then
+        Assertions.assertNull(ticket);
+    }
 }
