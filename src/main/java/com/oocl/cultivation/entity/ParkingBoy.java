@@ -8,8 +8,8 @@ public class ParkingBoy {
         this.id = id;
     }
 
-    public String parkingCar(Car car) {
-        return car.getId();
+    public Ticket parkingCar(Car car) {
+        return new Ticket(car.getId());
     }
 
     public Car fetchingCar(String ticket) {
