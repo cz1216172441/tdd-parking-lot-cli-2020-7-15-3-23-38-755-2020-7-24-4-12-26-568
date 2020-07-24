@@ -23,7 +23,9 @@ public class ParkingBoy {
                         .filter(car -> car.getId().equals(ticket.getNumber()))
                         .findFirst();
                 if (first.isPresent()) {
-                    return new Car(first.get().getId());
+                    String carId = first.get().getId();
+                    cars.removeIf(car -> car.getId().equals(carId));
+                    return new Car(carId);
                 }
             }
         }
