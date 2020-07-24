@@ -13,7 +13,7 @@ public class ParkingBoy {
     }
 
     public Car fetchingCar(String ticket) {
-        return null;
+        return new Car(ticket);
     }
 
 }
