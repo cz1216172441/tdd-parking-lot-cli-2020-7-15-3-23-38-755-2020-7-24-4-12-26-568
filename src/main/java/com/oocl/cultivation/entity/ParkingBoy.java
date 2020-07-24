@@ -12,8 +12,8 @@ public class ParkingBoy {
         return new Ticket(car.getId());
     }
 
-    public Car fetchingCar(String ticket) {
-        return new Car(ticket);
+    public Car fetchingCar(Ticket ticket) {
+        return new Car(ticket.getNumber());
     }
 
 }

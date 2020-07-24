@@ -23,10 +23,10 @@ public class ParkingBoyTest {
     void should_return_1_car_when_fetching_car_given_1_ticker_1_parking_boy() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy(1);
-        String ticker = "CAR001";
+        Ticket ticket = new Ticket("CAR001");
         // when
-        Car car = parkingBoy.fetchingCar(ticker);
+        Car car = parkingBoy.fetchingCar(ticket);
         // then
-        Assertions.assertNotNull(car);
+        Assertions.assertEquals("CAR001", car.getId());
     }
 }
