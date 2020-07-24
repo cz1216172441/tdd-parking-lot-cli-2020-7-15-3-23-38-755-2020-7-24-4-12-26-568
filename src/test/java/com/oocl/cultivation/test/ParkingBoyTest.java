@@ -24,10 +24,14 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_1_car_when_fetching_car_given_1_ticker_and_1_parking_boy() {
+    void should_return_1_car_when_fetching_car_given_1_ticker_and_1_parking_boy_and_1_parking_lot_with_1_car() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
         Ticket ticket = new Ticket("CAR001");
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car("CAR001"));
+        ParkingLot parkingLot = new ParkingLot(cars);
+        parkingBoy.setParkingLot(parkingLot);
         // when
         Car car = parkingBoy.fetchingCar(ticket);
         // then
@@ -65,4 +69,5 @@ public class ParkingBoyTest {
         // then
         Assertions.assertEquals("CAR001", correctCar.getId());
     }
+
 }
