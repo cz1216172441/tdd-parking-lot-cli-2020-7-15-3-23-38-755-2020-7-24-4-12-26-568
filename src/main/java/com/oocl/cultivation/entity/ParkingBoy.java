@@ -9,7 +9,7 @@ public class ParkingBoy {
     }
 
     public String parkingCar(Car car) {
-        return null;
+        return car.getId();
     }
 
 }
