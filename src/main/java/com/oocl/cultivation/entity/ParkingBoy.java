@@ -1,5 +1,6 @@
 package com.oocl.cultivation.entity;
 
+import com.oocl.cultivation.exception.NoProvideParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
 import java.util.List;
@@ -22,8 +23,11 @@ public class ParkingBoy {
         return null;
     }
 
-    public Car fetchingCar(Ticket ticket) throws UnrecognizedParkingTicketException {
-        if (parkingLot != null && ticket != null) {
+    public Car fetchingCar(Ticket ticket) throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
+        if (ticket == null) {
+            throw new NoProvideParkingTicketException();
+        }
+        if (parkingLot != null) {
             List<Car> cars = parkingLot.getCars();
             if (ticket.getNumber() == null) {
                 throw new UnrecognizedParkingTicketException();

@@ -36,7 +36,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_1_car_when_fetching_car_given_1_ticker_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException {
+    void should_return_1_car_when_fetching_car_given_1_ticker_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
         parkingLot.getCars().add(new Car("CAR001"));
@@ -60,7 +60,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_1_correct_car_when_fetching_car_given_1_ticket_and_1_packing_boy_and_1_parking_lot_with_2_car() throws UnrecognizedParkingTicketException {
+    void should_return_1_correct_car_when_fetching_car_given_1_ticket_and_1_packing_boy_and_1_parking_lot_with_2_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
         parkingLot.getCars().add(new Car("CAR001"));
@@ -72,7 +72,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_when_fetching_car_given_1_wrong_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException {
+    void should_return_no_car_when_fetching_car_given_1_wrong_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
         parkingLot.getCars().add(new Car("CAR002"));
@@ -83,17 +83,17 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_when_fetching_car_given_no_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException {
+    void should_return_please_provide_your_parking_ticket_when_fetching_car_given_no_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         parkingLot.getCars().add(new Car("CAR002"));
         // when
-        Car car = parkingBoy.fetchingCar(null);
+        Exception exception = Assertions.assertThrows(NoProvideParkingTicketException.class, () -> parkingBoy.fetchingCar(null));
         // then
-        Assertions.assertNull(car);
+        Assertions.assertEquals("Please provide your parking ticket.", exception.getMessage());
     }
 
     @Test
-    void should_return_unrecognized_parking_ticket_when_fetching_car_given_1_used_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException {
+    void should_return_unrecognized_parking_ticket_when_fetching_car_given_1_used_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
         parkingLot.getCars().add(new Car("CAR001"));
@@ -130,7 +130,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_unrecognized_parking_ticket_when_fetching_car_given_a_used_ticket() throws UnrecognizedParkingTicketException {
+    void should_return_unrecognized_parking_ticket_when_fetching_car_given_a_used_ticket() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Car car = new Car("CAR001");
         Ticket ticket = parkingBoy.parkingCar(car);
