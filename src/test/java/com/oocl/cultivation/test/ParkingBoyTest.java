@@ -4,7 +4,7 @@ import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.ParkingBoy;
 import com.oocl.cultivation.entity.ParkingLot;
 import com.oocl.cultivation.entity.Ticket;
-import com.oocl.cultivation.exception.FetchingCarException;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_1_car_when_fetching_car_given_1_ticker_and_1_parking_boy_and_1_parking_lot_with_1_car() throws FetchingCarException {
+    void should_return_1_car_when_fetching_car_given_1_ticker_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
         parkingLot.getCars().add(new Car("CAR001"));
@@ -59,7 +59,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_1_correct_car_when_fetching_car_given_1_ticket_and_1_packing_boy_and_1_parking_lot_with_2_car() throws FetchingCarException {
+    void should_return_1_correct_car_when_fetching_car_given_1_ticket_and_1_packing_boy_and_1_parking_lot_with_2_car() throws UnrecognizedParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
         parkingLot.getCars().add(new Car("CAR001"));
@@ -71,7 +71,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_when_fetching_car_given_1_wrong_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws FetchingCarException {
+    void should_return_no_car_when_fetching_car_given_1_wrong_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
         parkingLot.getCars().add(new Car("CAR002"));
@@ -82,7 +82,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_when_fetching_car_given_no_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws FetchingCarException {
+    void should_return_no_car_when_fetching_car_given_no_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException {
         // given
         parkingLot.getCars().add(new Car("CAR002"));
         // when
@@ -92,15 +92,15 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_no_car_when_fetching_car_given_1_used_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws FetchingCarException {
+    void should_return_unrecognized_parking_ticket_when_fetching_car_given_1_used_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
         parkingLot.getCars().add(new Car("CAR001"));
-        // when
         parkingBoy.fetchingCar(ticket);
-        Car car = parkingBoy.fetchingCar(ticket);
+        // when
+        Exception exception = Assertions.assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetchingCar(ticket));
         // then
-        Assertions.assertNull(car);
+        Assertions.assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
 
@@ -123,19 +123,19 @@ public class ParkingBoyTest {
         // given
         Ticket ticket = new Ticket(null);
         // when
-        Exception exception = Assertions.assertThrows(FetchingCarException.class, () -> parkingBoy.fetchingCar(ticket));
+        Exception exception = Assertions.assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetchingCar(ticket));
         // then
         Assertions.assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
     @Test
-    void should_return_unrecognized_parking_ticket_when_fetching_car_given_a_used_ticket() throws FetchingCarException {
+    void should_return_unrecognized_parking_ticket_when_fetching_car_given_a_used_ticket() throws UnrecognizedParkingTicketException {
         // given
         Car car = new Car("CAR001");
         Ticket ticket = parkingBoy.parkingCar(car);
         parkingBoy.fetchingCar(ticket);
         // when
-        Exception exception = Assertions.assertThrows(FetchingCarException.class, () -> parkingBoy.fetchingCar(ticket));
+        Exception exception = Assertions.assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetchingCar(ticket));
         // then
         Assertions.assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }

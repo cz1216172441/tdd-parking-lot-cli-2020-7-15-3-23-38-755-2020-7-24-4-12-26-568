@@ -1,6 +1,6 @@
 package com.oocl.cultivation.entity;
 
-import com.oocl.cultivation.exception.FetchingCarException;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,11 +22,11 @@ public class ParkingBoy {
         return null;
     }
 
-    public Car fetchingCar(Ticket ticket) throws FetchingCarException {
+    public Car fetchingCar(Ticket ticket) throws UnrecognizedParkingTicketException {
         if (parkingLot != null && ticket != null) {
             List<Car> cars = parkingLot.getCars();
             if (ticket.getNumber() == null) {
-                throw new FetchingCarException("Unrecognized parking ticket.");
+                throw new UnrecognizedParkingTicketException();
             }
             if (!cars.isEmpty()) {
                 Optional<Car> resultCar = cars.stream()
@@ -37,6 +37,8 @@ public class ParkingBoy {
                     cars.removeIf(car -> car.getId().equals(carId));
                     return new Car(carId);
                 }
+            } else {
+                throw new UnrecognizedParkingTicketException();
             }
         }
         return null;
