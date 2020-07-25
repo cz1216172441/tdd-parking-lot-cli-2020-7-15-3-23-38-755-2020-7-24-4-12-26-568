@@ -4,6 +4,7 @@ import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.ParkingBoy;
 import com.oocl.cultivation.entity.ParkingLot;
 import com.oocl.cultivation.entity.Ticket;
+import com.oocl.cultivation.exception.FetchingCarException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -115,5 +116,15 @@ public class ParkingBoyTest {
         Ticket ticket = parkingBoy.parkingCar(car);
         // then
         Assertions.assertNull(ticket);
+    }
+
+    @Test
+    void should_return_unrecognized_parking_ticket_when_fetching_car_given_a_null_number_ticket() {
+        // given
+        Ticket ticket = new Ticket(null);
+        // when
+        Exception exception = Assertions.assertThrows(FetchingCarException.class, () -> parkingBoy.fetchingCar(ticket));
+        // then
+        Assertions.assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 }
