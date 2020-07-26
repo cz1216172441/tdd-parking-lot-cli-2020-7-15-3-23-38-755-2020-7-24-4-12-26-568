@@ -2,13 +2,20 @@ package com.oocl.cultivation.entity;
 
 public class Ticket {
 
-    private final String number;
+    private final String carId;
 
-    public Ticket(String number) {
-        this.number = number;
+    private final String parkingLotId;
+
+    public Ticket(String carId, String parkingLotId) {
+        this.carId = carId;
+        this.parkingLotId = parkingLotId;
     }
 
-    public String getNumber() {
-        return number;
+    public String getCarId() {
+        return carId;
+    }
+
+    public String getParkingLotId() {
+        return parkingLotId;
     }
 }
