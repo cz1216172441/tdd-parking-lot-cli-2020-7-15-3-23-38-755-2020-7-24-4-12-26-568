@@ -84,16 +84,6 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_please_provide_your_parking_ticket_when_fetching_car_given_no_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
-        // given
-        parkingLot1.getCars().add(new Car("CAR002"));
-        // when
-        Exception exception = Assertions.assertThrows(NoProvideParkingTicketException.class, () -> parkingBoy.fetchingCar(null));
-        // then
-        Assertions.assertEquals("Please provide your parking ticket.", exception.getMessage());
-    }
-
-    @Test
     void should_return_unrecognized_parking_ticket_when_fetching_car_given_1_used_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001", "PARKINGLOT001");
