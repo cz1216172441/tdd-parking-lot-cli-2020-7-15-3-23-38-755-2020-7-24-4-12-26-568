@@ -22,21 +22,6 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_2_ticket_when_parking_car_given_2_car_and_1_packing_boy() throws NotEnoughPositionException {
-        // given
-        Car car001 = new Car("CAR001");
-        Car car002 = new Car("CAR002");
-        // when
-        Ticket ticket1 = parkingBoy.parkingCar(car001);
-        Ticket ticket2 = parkingBoy.parkingCar(car002);
-        // then
-        Assertions.assertEquals("CAR001", ticket1.getCarId());
-        Assertions.assertEquals("PARKINGLOT001", ticket1.getParkingLotId());
-        Assertions.assertEquals("CAR002", ticket2.getCarId());
-        Assertions.assertEquals("PARKINGLOT001", ticket1.getParkingLotId());
-    }
-
-    @Test
     void should_return_1_correct_car_when_fetching_car_given_1_ticket_and_1_packing_boy_and_1_parking_lot_with_2_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001", "PARKINGLOT001");

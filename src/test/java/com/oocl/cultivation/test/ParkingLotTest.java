@@ -42,4 +42,18 @@ public class ParkingLotTest {
         Assertions.assertEquals("CAR001", car.getId());
     }
 
+    @Test
+    void should_return_2_ticket_when_parking_given_2_car() throws NotEnoughPositionException {
+        // given
+        Car car001 = new Car("CAR001");
+        Car car002 = new Car("CAR002");
+        // when
+        Ticket ticket1 = parkingLot.parking(car001);
+        Ticket ticket2 = parkingLot.parking(car002);
+        // then
+        Assertions.assertEquals("CAR001", ticket1.getCarId());
+        Assertions.assertEquals("PARKINGLOT1", ticket1.getParkingLotId());
+        Assertions.assertEquals("CAR002", ticket2.getCarId());
+        Assertions.assertEquals("PARKINGLOT1", ticket1.getParkingLotId());
+    }
 }
