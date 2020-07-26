@@ -1,7 +1,6 @@
 package com.oocl.cultivation.test;
 
 import com.oocl.cultivation.entity.*;
-import com.oocl.cultivation.exception.NoProvideParkingTicketException;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

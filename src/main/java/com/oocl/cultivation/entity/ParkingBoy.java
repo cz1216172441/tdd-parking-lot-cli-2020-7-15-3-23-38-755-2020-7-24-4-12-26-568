@@ -24,11 +24,7 @@ public class ParkingBoy {
         if (!parkingLots.isEmpty()) {
             Optional<ParkingLot> resultParkingLot = findWillBeParkedParkingLot();
             if (resultParkingLot.isPresent()) {
-                ParkingLot parkingLot = resultParkingLot.get();
-                parkingLot.getCars().add(car);
-                Ticket ticket = new Ticket(car.getId(), parkingLot.getId());
-                parkingLot.getTickets().add(ticket);
-                return ticket;
+                return resultParkingLot.get().parking(car);
             }
         }
         throw new NotEnoughPositionException();
@@ -48,11 +44,7 @@ public class ParkingBoy {
                 .filter(parkingLot -> parkingLot.getId().equals(ticket.getParkingLotId()) && parkingLot.getCars().size() > 0)
                 .findFirst();
         if (resultParkingLot.isPresent()) {
-            ParkingLot parkingLot = resultParkingLot.get();
-            boolean isRemoved = parkingLot.getCars().removeIf(car -> car.getId().equals(ticket.getCarId()));
-            if (isRemoved) {
-                return new Car(ticket.getCarId());
-            }
+            return resultParkingLot.get().fetching(ticket);
         }
         throw new UnrecognizedParkingTicketException();
     }
