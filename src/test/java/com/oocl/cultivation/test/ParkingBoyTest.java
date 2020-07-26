@@ -5,6 +5,7 @@ import com.oocl.cultivation.entity.ParkingBoy;
 import com.oocl.cultivation.entity.ParkingLot;
 import com.oocl.cultivation.entity.Ticket;
 import com.oocl.cultivation.exception.NoProvideParkingTicketException;
+import com.oocl.cultivation.exception.NotEnoughPositionException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -148,5 +149,18 @@ public class ParkingBoyTest {
         Exception exception = Assertions.assertThrows(NoProvideParkingTicketException.class, () -> parkingBoy.fetchingCar(null));
         // then
         Assertions.assertEquals("Please provide your parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    void should_return_not_enough_position_when_parking_car_given_a_car_and_a_full_capacity_parking_lot() {
+        // given
+        Car car = new Car("CAR11");
+        for (int i = 1; i <= 10; i++) {
+            parkingLot.getCars().add(new Car(String.format("CAR%d", i)));
+        }
+        // when
+        Exception exception = Assertions.assertThrows(NotEnoughPositionException.class, () -> parkingBoy.parkingCar(car));
+        // then
+        Assertions.assertEquals("Not enough position.", exception.getMessage());
     }
 }
