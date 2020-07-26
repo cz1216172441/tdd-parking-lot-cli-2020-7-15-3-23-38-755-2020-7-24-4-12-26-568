@@ -18,7 +18,7 @@ public class SuperSmartParkingBoyTest {
         SuperMartParkingBoy superMartParkingBoy = new SuperMartParkingBoy();
 
         ParkingLot parkingLot1 = new ParkingLot("PARKINGLOT1");
-        for (int i = 0; i < ParkingLot.CAPACITY; i++) {
+        for (int i = 1; i < ParkingLot.CAPACITY; i++) {
             parkingLot1.parking(new Car(String.format("CAR%d", i)));
         }
         superMartParkingBoy.addParkingLot(parkingLot1);
