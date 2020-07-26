@@ -80,3 +80,22 @@ parking car
 
 **then**
 
+a ticket and the car parked in the parking lot 2
+
+
+
+### Story 4
+
+---
+
+**given**
+
+1 smart parking boy, 2 parking lot, one of parking lot container 9 car, another parking lot container 1 car
+
+**when**
+
+parking car
+
+**then**
+
+a ticket and the car parked in the parking lot which container only 1 car

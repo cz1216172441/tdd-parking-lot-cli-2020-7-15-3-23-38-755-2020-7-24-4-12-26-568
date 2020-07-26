@@ -1,9 +1,6 @@
 package com.oocl.cultivation.test;
 
-import com.oocl.cultivation.entity.Car;
-import com.oocl.cultivation.entity.ParkingBoy;
-import com.oocl.cultivation.entity.ParkingLot;
-import com.oocl.cultivation.entity.Ticket;
+import com.oocl.cultivation.entity.*;
 import com.oocl.cultivation.exception.NoProvideParkingTicketException;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
@@ -180,6 +177,24 @@ public class ParkingBoyTest {
         Ticket ticket = parkingBoy.parkingCar(car);
         // then
         Assertions.assertEquals("CAR11", ticket.getCarId());
+        Assertions.assertEquals("PARKINGLOT002", ticket.getParkingLotId());
+    }
+
+    @Test
+    void should_return_ticket_with_parking_lot_2_when_parking_car_given_a_super_smart_parking_boy_and_a_car_and_2_parking_lots_and_parking_lot2_contain_more_empty_position() throws NotEnoughPositionException {
+        // given
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy();
+        Car car = new Car("CARXX");
+        ParkingLot parkingLot2 = new ParkingLot("PARKINGLOT002");
+        superSmartParkingBoy.addParkingLot(parkingLot1);
+        superSmartParkingBoy.addParkingLot(parkingLot2);
+        for (int i = 1; i <= ParkingLot.CAPACITY - 1; i++) {
+            parkingLot1.getCars().add(new Car(String.format("CAR%d", i)));
+        }
+        // when
+        Ticket ticket = superSmartParkingBoy.parkingCar(car);
+        // then
+        Assertions.assertEquals("CARXX", ticket.getCarId());
         Assertions.assertEquals("PARKINGLOT002", ticket.getParkingLotId());
     }
 }
