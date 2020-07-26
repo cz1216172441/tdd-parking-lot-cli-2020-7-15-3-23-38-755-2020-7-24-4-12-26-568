@@ -4,19 +4,24 @@ import com.oocl.cultivation.exception.NoProvideParkingTicketException;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class ParkingBoy {
 
-    private ParkingLot parkingLot;
+    private final List<ParkingLot> parkingLots;
 
-    public void setParkingLot(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+    public ParkingBoy() {
+        parkingLots = new ArrayList<>();
+    }
+
+    public void addParkingLot(ParkingLot parkingLot) {
+        parkingLots.add(parkingLot);
     }
 
     public Ticket parkingCar(Car car) throws NotEnoughPositionException {
-        List<Car> cars = parkingLot.getCars();
+        List<Car> cars = parkingLots.get(0).getCars();
         if (cars.size() < ParkingLot.CAPACITY) {
             cars.add(car);
             return new Ticket(car.getId());
@@ -29,8 +34,8 @@ public class ParkingBoy {
         if (ticket == null) {
             throw new NoProvideParkingTicketException();
         }
-        if (parkingLot != null) {
-            List<Car> cars = parkingLot.getCars();
+        if (parkingLots.get(0) != null) {
+            List<Car> cars = parkingLots.get(0).getCars();
             if (ticket.getNumber() == null) {
                 throw new UnrecognizedParkingTicketException();
             }

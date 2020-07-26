@@ -17,13 +17,13 @@ public class ParkingBoyTest {
 
     private ParkingBoy parkingBoy;
 
-    private ParkingLot parkingLot;
+    private ParkingLot parkingLot1;
 
     @BeforeEach
     public void setUp() {
-        parkingLot = new ParkingLot();
+        parkingLot1 = new ParkingLot();
         parkingBoy = new ParkingBoy();
-        parkingBoy.setParkingLot(parkingLot);
+        parkingBoy.addParkingLot(parkingLot1);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class ParkingBoyTest {
     void should_return_1_car_when_fetching_car_given_1_ticker_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
-        parkingLot.getCars().add(new Car("CAR001"));
+        parkingLot1.getCars().add(new Car("CAR001"));
         // when
         Car car = parkingBoy.fetchingCar(ticket);
         // then
@@ -64,8 +64,8 @@ public class ParkingBoyTest {
     void should_return_1_correct_car_when_fetching_car_given_1_ticket_and_1_packing_boy_and_1_parking_lot_with_2_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
-        parkingLot.getCars().add(new Car("CAR001"));
-        parkingLot.getCars().add(new Car("CAR002"));
+        parkingLot1.getCars().add(new Car("CAR001"));
+        parkingLot1.getCars().add(new Car("CAR002"));
         // when
         Car correctCar = parkingBoy.fetchingCar(ticket);
         // then
@@ -76,7 +76,7 @@ public class ParkingBoyTest {
     void should_return_no_car_when_fetching_car_given_1_wrong_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
-        parkingLot.getCars().add(new Car("CAR002"));
+        parkingLot1.getCars().add(new Car("CAR002"));
         // when
         Car car = parkingBoy.fetchingCar(ticket);
         // then
@@ -86,7 +86,7 @@ public class ParkingBoyTest {
     @Test
     void should_return_please_provide_your_parking_ticket_when_fetching_car_given_no_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
-        parkingLot.getCars().add(new Car("CAR002"));
+        parkingLot1.getCars().add(new Car("CAR002"));
         // when
         Exception exception = Assertions.assertThrows(NoProvideParkingTicketException.class, () -> parkingBoy.fetchingCar(null));
         // then
@@ -97,7 +97,7 @@ public class ParkingBoyTest {
     void should_return_unrecognized_parking_ticket_when_fetching_car_given_1_used_ticket_and_1_parking_boy_and_1_parking_lot_with_1_car() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
         // given
         Ticket ticket = new Ticket("CAR001");
-        parkingLot.getCars().add(new Car("CAR001"));
+        parkingLot1.getCars().add(new Car("CAR001"));
         parkingBoy.fetchingCar(ticket);
         // when
         Exception exception = Assertions.assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetchingCar(ticket));
@@ -110,7 +110,7 @@ public class ParkingBoyTest {
     void should_return_not_enough_position_when_parking_car_given_1_car_and_1_parking_boy_and_1_capacity_is_10_parking_lot_with_10_car() throws NotEnoughPositionException {
         // given
         Car car = new Car("CAR11");
-        List<Car> cars = parkingLot.getCars();
+        List<Car> cars = parkingLot1.getCars();
         for (int i = 1; i <= ParkingLot.CAPACITY; i++) {
             cars.add(new Car(String.format("CAR%d", i)));
         }
@@ -156,11 +156,26 @@ public class ParkingBoyTest {
         // given
         Car car = new Car("CAR11");
         for (int i = 1; i <= ParkingLot.CAPACITY; i++) {
-            parkingLot.getCars().add(new Car(String.format("CAR%d", i)));
+            parkingLot1.getCars().add(new Car(String.format("CAR%d", i)));
         }
         // when
         Exception exception = Assertions.assertThrows(NotEnoughPositionException.class, () -> parkingBoy.parkingCar(car));
         // then
         Assertions.assertEquals("Not enough position.", exception.getMessage());
+    }
+
+    @Test
+    void should_return_ticket_with_parking_info_when_parking_car_given_a_car_and_2_parking_lot_and_one_of_the_parking_lot_is_full_capacity() throws NotEnoughPositionException {
+        // given
+        Car car = new Car("CAR11");
+        ParkingLot parkingLot2 = new ParkingLot();
+        parkingBoy.addParkingLot(parkingLot2);
+        for (int i = 1; i <= ParkingLot.CAPACITY; i++) {
+            parkingLot1.getCars().add(new Car(String.format("CAR%d", i)));
+        }
+        // when
+        Ticket ticket = parkingBoy.parkingCar(car);
+        // then
+        Assertions.assertEquals("CAR11-PARKINGLOT2", ticket.getNumber());
     }
 }

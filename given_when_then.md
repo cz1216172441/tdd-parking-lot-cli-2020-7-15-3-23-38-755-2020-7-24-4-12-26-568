@@ -61,3 +61,22 @@ parking car
 **then**
 
 "Not enough position."
+
+
+
+
+
+### Story 3
+
+---
+
+**given**
+
+1 car, 2 parking lot, one of  parking lot full capacity
+
+**when**
+
+parking car
+
+**then**
+
