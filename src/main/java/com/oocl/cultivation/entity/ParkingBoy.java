@@ -40,13 +40,17 @@ public class ParkingBoy {
         if (ticket == null) {
             throw new NoProvideParkingTicketException();
         }
-        Optional<ParkingLot> resultParkingLot = parkingLots.stream()
-                .filter(parkingLot -> parkingLot.getId().equals(ticket.getParkingLotId()) && parkingLot.getCars().size() > 0)
-                .findFirst();
+        Optional<ParkingLot> resultParkingLot = findWillBeFetchedParkingLot(ticket);
         if (resultParkingLot.isPresent()) {
             return resultParkingLot.get().fetching(ticket);
         }
         throw new UnrecognizedParkingTicketException();
+    }
+
+    public Optional<ParkingLot> findWillBeFetchedParkingLot(Ticket ticket) {
+        return parkingLots.stream()
+                .filter(parkingLot -> parkingLot.getId().equals(ticket.getParkingLotId()) && parkingLot.getCars().size() > 0)
+                .findFirst();
     }
 
 }
