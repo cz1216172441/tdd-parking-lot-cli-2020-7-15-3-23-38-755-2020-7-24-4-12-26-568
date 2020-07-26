@@ -105,21 +105,6 @@ public class ParkingBoyTest {
         Assertions.assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
-
-    @Test
-    void should_return_not_enough_position_when_parking_car_given_1_car_and_1_parking_boy_and_1_capacity_is_10_parking_lot_with_10_car() throws NotEnoughPositionException {
-        // given
-        Car car = new Car("CAR11");
-        List<Car> cars = parkingLot1.getCars();
-        for (int i = 1; i <= ParkingLot.CAPACITY; i++) {
-            cars.add(new Car(String.format("CAR%d", i)));
-        }
-        // when
-        Exception exception = Assertions.assertThrows(NotEnoughPositionException.class, () -> parkingBoy.parkingCar(car));
-        // then
-        Assertions.assertEquals("Not enough position.", exception.getMessage());
-    }
-
     @Test
     void should_return_unrecognized_parking_ticket_when_fetching_car_given_a_null_number_ticket() {
         // given
