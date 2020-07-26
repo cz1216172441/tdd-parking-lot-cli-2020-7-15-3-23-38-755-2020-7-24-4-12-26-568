@@ -110,4 +110,17 @@ public class ParkingLotTest {
         // then
         Assertions.assertEquals("Please provide your parking ticket.", exception.getMessage());
     }
+
+    @Test
+    void should_return_not_enough_position_when_parking_given_a_car_and_a_full_capacity_parking_lot() throws NotEnoughPositionException {
+        // given
+        Car car = new Car("CAR11");
+        for (int i = 1; i <= ParkingLot.CAPACITY; i++) {
+            parkingLot.parking(new Car(String.format("CAR%d", i)));
+        }
+        // when
+        Exception exception = Assertions.assertThrows(NotEnoughPositionException.class, () -> parkingLot.parking(car));
+        // then
+        Assertions.assertEquals("Not enough position.", exception.getMessage());
+    }
 }

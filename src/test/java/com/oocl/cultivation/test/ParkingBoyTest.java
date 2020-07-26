@@ -21,19 +21,6 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_not_enough_position_when_parking_car_given_a_car_and_a_full_capacity_parking_lot() {
-        // given
-        Car car = new Car("CAR11");
-        for (int i = 1; i <= ParkingLot.CAPACITY; i++) {
-            parkingLot1.getCars().add(new Car(String.format("CAR%d", i)));
-        }
-        // when
-        Exception exception = Assertions.assertThrows(NotEnoughPositionException.class, () -> parkingBoy.parkingCar(car));
-        // then
-        Assertions.assertEquals("Not enough position.", exception.getMessage());
-    }
-
-    @Test
     void should_return_ticket_with_parking_lot_2_when_parking_car_given_a_car_and_2_parking_lot_and_one_of_the_parking_lot_is_full_capacity() throws NotEnoughPositionException {
         // given
         Car car = new Car("CAR11");
