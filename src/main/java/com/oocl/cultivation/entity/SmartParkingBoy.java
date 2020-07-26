@@ -1,11 +1,13 @@
 package com.oocl.cultivation.entity;
 
-import com.oocl.cultivation.exception.NotEnoughPositionException;
+import java.util.Comparator;
+import java.util.Optional;
 
 public class SmartParkingBoy extends ParkingBoy {
 
     @Override
-    public Ticket parkingCar(Car car) throws NotEnoughPositionException {
-        return super.parkingCar(car);
+    public Optional<ParkingLot> findWillBeParkedParkingLot() {
+        return parkingLots.stream()
+                .min(Comparator.comparing(parkingLot -> parkingLot.getCars().size()));
     }
 }
