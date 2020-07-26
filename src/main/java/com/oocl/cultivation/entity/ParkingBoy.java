@@ -17,7 +17,7 @@ public class ParkingBoy {
 
     public Ticket parkingCar(Car car) throws NotEnoughPositionException {
         List<Car> cars = parkingLot.getCars();
-        if (cars.size() < 10) {
+        if (cars.size() < ParkingLot.CAPACITY) {
             cars.add(car);
             return new Ticket(car.getId());
         } else {

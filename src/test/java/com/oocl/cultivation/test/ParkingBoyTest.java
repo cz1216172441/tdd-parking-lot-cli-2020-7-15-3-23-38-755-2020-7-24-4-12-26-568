@@ -111,7 +111,7 @@ public class ParkingBoyTest {
         // given
         Car car = new Car("CAR11");
         List<Car> cars = parkingLot.getCars();
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= ParkingLot.CAPACITY; i++) {
             cars.add(new Car(String.format("CAR%d", i)));
         }
         // when
@@ -155,7 +155,7 @@ public class ParkingBoyTest {
     void should_return_not_enough_position_when_parking_car_given_a_car_and_a_full_capacity_parking_lot() {
         // given
         Car car = new Car("CAR11");
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= ParkingLot.CAPACITY; i++) {
             parkingLot.getCars().add(new Car(String.format("CAR%d", i)));
         }
         // when

@@ -7,8 +7,10 @@ public class ParkingLot {
 
     private final List<Car> cars;
 
+    public static final int CAPACITY = 10;
+
     public ParkingLot() {
-        cars = new ArrayList<>(10);
+        cars = new ArrayList<>(CAPACITY);
     }
 
     public List<Car> getCars() {
