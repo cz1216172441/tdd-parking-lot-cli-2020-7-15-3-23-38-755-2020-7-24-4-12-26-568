@@ -1,6 +1,7 @@
 package com.oocl.cultivation.entity;
 
 import com.oocl.cultivation.exception.NoProvideParkingTicketException;
+import com.oocl.cultivation.exception.NotEnoughPositionException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
 import java.util.List;
@@ -14,13 +15,14 @@ public class ParkingBoy {
         this.parkingLot = parkingLot;
     }
 
-    public Ticket parkingCar(Car car) {
+    public Ticket parkingCar(Car car) throws NotEnoughPositionException {
         List<Car> cars = parkingLot.getCars();
         if (cars.size() < 10) {
             cars.add(car);
             return new Ticket(car.getId());
+        } else {
+            throw new NotEnoughPositionException();
         }
-        return null;
     }
 
     public Car fetchingCar(Ticket ticket) throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {

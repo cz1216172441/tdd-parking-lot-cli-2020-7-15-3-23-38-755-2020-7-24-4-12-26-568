@@ -27,7 +27,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_1_ticket_when_parking_car_given_1_car_and_1_parking_boy() {
+    void should_return_1_ticket_when_parking_car_given_1_car_and_1_parking_boy() throws NotEnoughPositionException {
         // given
         Car car = new Car("CAR001");
         // when
@@ -48,7 +48,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_2_ticket_when_parking_car_given_2_car_and_1_packing_boy() {
+    void should_return_2_ticket_when_parking_car_given_2_car_and_1_packing_boy() throws NotEnoughPositionException {
         // given
         Car car001 = new Car("CAR001");
         Car car002 = new Car("CAR002");
@@ -107,7 +107,7 @@ public class ParkingBoyTest {
 
 
     @Test
-    void should_return_can_not_parking_when_parking_car_given_1_car_and_1_parking_boy_and_1_capacity_is_10_parking_lot_with_10_car() {
+    void should_return_not_enough_position_when_parking_car_given_1_car_and_1_parking_boy_and_1_capacity_is_10_parking_lot_with_10_car() throws NotEnoughPositionException {
         // given
         Car car = new Car("CAR11");
         List<Car> cars = parkingLot.getCars();
@@ -115,9 +115,9 @@ public class ParkingBoyTest {
             cars.add(new Car(String.format("CAR%d", i)));
         }
         // when
-        Ticket ticket = parkingBoy.parkingCar(car);
+        Exception exception = Assertions.assertThrows(NotEnoughPositionException.class, () -> parkingBoy.parkingCar(car));
         // then
-        Assertions.assertNull(ticket);
+        Assertions.assertEquals("Not enough position.", exception.getMessage());
     }
 
     @Test
@@ -131,7 +131,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_unrecognized_parking_ticket_when_fetching_car_given_a_used_ticket() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
+    void should_return_unrecognized_parking_ticket_when_fetching_car_given_a_used_ticket() throws UnrecognizedParkingTicketException, NoProvideParkingTicketException, NotEnoughPositionException {
         // given
         Car car = new Car("CAR001");
         Ticket ticket = parkingBoy.parkingCar(car);
