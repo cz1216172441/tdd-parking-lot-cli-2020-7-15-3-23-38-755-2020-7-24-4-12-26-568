@@ -56,4 +56,16 @@ public class ParkingLotTest {
         Assertions.assertEquals("CAR002", ticket2.getCarId());
         Assertions.assertEquals("PARKINGLOT1", ticket1.getParkingLotId());
     }
+
+    @Test
+    void should_return_1_correct_car_when_fetching_given_1_ticket_and_1_parking_lot_with_2_car() throws NotEnoughPositionException, UnrecognizedParkingTicketException, NoProvideParkingTicketException {
+        // given
+        Ticket ticket = new Ticket("CAR001", "PARKINGLOT1");
+        parkingLot.parking(new Car("CAR001"));
+        parkingLot.parking(new Car("CAR002"));
+        // when
+        Car correctCar = parkingLot.fetching(ticket);
+        // then
+        Assertions.assertEquals("CAR001", correctCar.getId());
+    }
 }
