@@ -22,18 +22,19 @@ public class ParkingBoy {
 
     public Ticket parkingCar(Car car) throws NotEnoughPositionException {
         if (!parkingLots.isEmpty()) {
-            Optional<ParkingLot> resultParkingLot = findWillBeParkedParkingLot();
-            if (resultParkingLot.isPresent()) {
-                return resultParkingLot.get().parking(car);
+            ParkingLot resultParkingLot = findWillBeParkedParkingLot();
+            if (resultParkingLot != null) {
+                return resultParkingLot.parking(car);
             }
         }
         throw new NotEnoughPositionException();
     }
 
-    public Optional<ParkingLot> findWillBeParkedParkingLot() {
+    public ParkingLot findWillBeParkedParkingLot() {
         return parkingLots.stream()
                 .filter(parkingLot -> parkingLot.getCars().size() < ParkingLot.CAPACITY)
-                .findFirst();
+                .findFirst()
+                .orElse(null);
     }
 
     public Car fetchingCar(Ticket ticket) throws UnrecognizedParkingTicketException, NoProvideParkingTicketException {
