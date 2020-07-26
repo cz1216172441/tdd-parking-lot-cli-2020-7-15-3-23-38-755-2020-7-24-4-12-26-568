@@ -1,9 +1,12 @@
 package com.oocl.cultivation.entity;
 
+import com.oocl.cultivation.exception.NoProvideParkingTicketException;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ParkingLot {
 
@@ -41,5 +44,20 @@ public class ParkingLot {
             return ticket;
         }
         throw new NotEnoughPositionException();
+    }
+
+    public Car fetching(Ticket ticket) throws NoProvideParkingTicketException, UnrecognizedParkingTicketException {
+        if (ticket == null) {
+            throw new NoProvideParkingTicketException();
+        }
+        boolean isTicketExisted = tickets.removeIf(ticketItem -> ticketItem.equals(ticket));
+        if (isTicketExisted) {
+            Optional<Car> resultCar = cars.stream().filter(car -> car.getId().equals(ticket.getCarId())).findFirst();
+            if (resultCar.isPresent()) {
+                cars.removeIf(car -> car.getId().equals(ticket.getCarId()));
+                return resultCar.get();
+            }
+        }
+        throw new UnrecognizedParkingTicketException();
     }
 }
