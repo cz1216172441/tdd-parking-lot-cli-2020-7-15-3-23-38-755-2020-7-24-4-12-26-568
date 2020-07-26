@@ -26,7 +26,9 @@ public class ParkingBoy {
             if (resultParkingLot.isPresent()) {
                 ParkingLot parkingLot = resultParkingLot.get();
                 parkingLot.getCars().add(car);
-                return new Ticket(car.getId(), parkingLot.getId());
+                Ticket ticket = new Ticket(car.getId(), parkingLot.getId());
+                parkingLot.getTickets().add(ticket);
+                return ticket;
             }
         }
         throw new NotEnoughPositionException();
