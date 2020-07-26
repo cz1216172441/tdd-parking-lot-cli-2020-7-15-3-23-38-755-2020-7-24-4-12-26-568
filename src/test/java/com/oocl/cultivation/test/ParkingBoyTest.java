@@ -21,15 +21,6 @@ public class ParkingBoyTest {
     }
 
     @Test
-    void should_return_please_provide_your_parking_ticket_when_fetching_car_given_null_ticket() {
-        // given
-        // when
-        Exception exception = Assertions.assertThrows(NoProvideParkingTicketException.class, () -> parkingBoy.fetchingCar(null));
-        // then
-        Assertions.assertEquals("Please provide your parking ticket.", exception.getMessage());
-    }
-
-    @Test
     void should_return_not_enough_position_when_parking_car_given_a_car_and_a_full_capacity_parking_lot() {
         // given
         Car car = new Car("CAR11");

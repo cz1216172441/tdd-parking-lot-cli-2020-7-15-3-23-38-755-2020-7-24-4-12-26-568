@@ -101,4 +101,13 @@ public class ParkingLotTest {
         // then
         Assertions.assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
+
+    @Test
+    void should_return_please_provide_your_parking_ticket_when_fetching_given_null_ticket() {
+        // given
+        // when
+        Exception exception = Assertions.assertThrows(NoProvideParkingTicketException.class, () -> parkingLot.fetching(null));
+        // then
+        Assertions.assertEquals("Please provide your parking ticket.", exception.getMessage());
+    }
 }
